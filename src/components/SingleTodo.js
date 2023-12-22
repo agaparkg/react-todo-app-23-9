@@ -3,7 +3,7 @@ import { Button, InputGroup, Input, InputGroupText } from "reactstrap";
 
 export default class SingleTodo extends Component {
   render() {
-    // console.log(this.props);
+    console.log(this.props);
     const {
       todo: { text, id, complete },
     } = this.props;

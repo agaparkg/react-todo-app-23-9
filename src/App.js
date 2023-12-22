@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { Button, InputGroup, Input, List, InputGroupText } from "reactstrap";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Todo List React App</h1>
+      <InputGroup>
+        <Input />
+        <Button color="primary">Add Todo</Button>
+      </InputGroup>
+      <main>
+        <List style={{ padding: "0" }}>
+          <InputGroup style={{ marginBottom: "2px" }}>
+            <InputGroupText>
+              <Input
+                addon
+                aria-label="Checkbox for following text input"
+                type="checkbox"
+              />
+            </InputGroupText>
+            <Input placeholder="Check it out" />
+            <Button color="danger">Delete</Button>
+          </InputGroup>
+        </List>
+      </main>
     </div>
   );
 }

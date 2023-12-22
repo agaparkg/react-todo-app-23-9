@@ -1,4 +1,3 @@
-import { Button, InputGroup, Input, List, InputGroupText } from "reactstrap";
 import "./App.css";
 import TodoList from "./components/TodoList";
 

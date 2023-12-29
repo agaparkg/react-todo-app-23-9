@@ -105,7 +105,9 @@ export default class TodoList extends Component {
         <main>
           <List style={{ padding: "0" }}>
             {todos.map((todo) => {
-              const editable = editId === todo.id; // null === todo.id => false
+              const editable = editId === todo.id;
+              // null === todo.id => false
+              // "dsdfj-dafasdf-adsfd-dfadf" === todo.id => true
               // console.log("you can edit todo with id", editable && todo.id);
               return (
                 <SingleTodo

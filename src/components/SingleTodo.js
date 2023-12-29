@@ -17,7 +17,7 @@ export default class SingleTodo extends Component {
     const { inputValue } = this.state;
 
     const {
-      todo: { text, id, complete },
+      todo: { id, complete },
       handleTodoComplete,
       handleTodoDelete,
       handleTodoEdit,
@@ -42,7 +42,6 @@ export default class SingleTodo extends Component {
           onChange={this.handleInputChange}
           value={inputValue}
           className={completed}
-          placeholder={text}
           disabled={!editable}
         />
         {editable ? (

@@ -12,6 +12,7 @@ export default class TodoList extends Component {
     this.state = {
       todos: initialTodos,
       newTodoInput: "",
+      editId: null,
     };
   }
 
@@ -40,10 +41,58 @@ export default class TodoList extends Component {
     }
 
     this.setState({ todos: newTodos, newTodoInput: "" });
+    this.updateLocalStorage(newTodos);
+  };
+
+  updateLocalStorage = (newTodos) => {
+    localStorage.setItem("todos", JSON.stringify(newTodos));
+  };
+
+  handleTodoComplete = (event, id) => {
+    const { todos } = this.state;
+
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, complete: event.target.checked };
+      }
+
+      return todo;
+    });
+
+    this.setState({ todos: newTodos });
+    this.updateLocalStorage(newTodos);
+  };
+
+  handleTodoDelete = (id) => {
+    const { todos } = this.state;
+
+    const newTodos = todos.filter((todo) => todo.id !== id);
+
+    this.setState({ todos: newTodos });
+    this.updateLocalStorage(newTodos);
+  };
+
+  handleTodoEdit = (id) => {
+    this.setState({ editId: id });
+  };
+
+  handleTodoSave = (todoText, id) => {
+    const { todos } = this.state;
+
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, text: todoText };
+      }
+
+      return todo;
+    });
+
+    this.setState({ todos: newTodos, editId: null });
+    this.updateLocalStorage(newTodos);
   };
 
   render() {
-    const { todos, newTodoInput } = this.state;
+    const { todos, newTodoInput, editId } = this.state;
     return (
       <>
         <h1>Todo List React App</h1>
@@ -56,7 +105,19 @@ export default class TodoList extends Component {
         <main>
           <List style={{ padding: "0" }}>
             {todos.map((todo) => {
-              return <SingleTodo key={todo.id} todo={todo} />;
+              const editable = editId === todo.id; // null === todo.id => false
+              // console.log("you can edit todo with id", editable && todo.id);
+              return (
+                <SingleTodo
+                  key={todo.id}
+                  todo={todo}
+                  editable={editable}
+                  handleTodoEdit={this.handleTodoEdit}
+                  handleTodoComplete={this.handleTodoComplete}
+                  handleTodoDelete={this.handleTodoDelete}
+                  handleTodoSave={this.handleTodoSave}
+                />
+              );
             })}
           </List>
         </main>

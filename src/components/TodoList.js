@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, InputGroup, Input, List } from "reactstrap";
 import SingleTodo from "./SingleTodo";
 import { v4 as uuidv4 } from "uuid";
+import Footer from "./Footer";
 
 const localStorageTodos = JSON.parse(localStorage.getItem("todos"));
 const initialTodos = localStorageTodos != null ? localStorageTodos : [];
@@ -90,6 +91,10 @@ export default class TodoList extends Component {
     this.setState({ todos: newTodos, editId: null });
     this.updateLocalStorage(newTodos);
   };
+  handleDeleteAllButton = () => {
+    this.setState({ todos: [] });
+    localStorage.setItem("todos", JSON.stringify([]));
+  };
 
   render() {
     const { todos, newTodoInput, editId } = this.state;
@@ -123,6 +128,11 @@ export default class TodoList extends Component {
             })}
           </List>
         </main>
+        <footer>
+          {todos.length > 1 ? (
+            <Footer handleDeleteAllButton={this.handleDeleteAllButton} />
+          ) : null}
+        </footer>
       </>
     );
   }

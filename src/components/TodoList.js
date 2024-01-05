@@ -91,6 +91,11 @@ export default class TodoList extends Component {
     this.updateLocalStorage(newTodos);
   };
 
+  handleClearAllTodos = () => {
+    this.setState({ todos: [] });
+    this.updateLocalStorage([]);
+  };
+
   render() {
     const { todos, newTodoInput, editId } = this.state;
     return (
@@ -123,6 +128,13 @@ export default class TodoList extends Component {
             })}
           </List>
         </main>
+        <footer>
+          {todos.length > 1 ? (
+            <Button onClick={this.handleClearAllTodos} color="danger">
+              Clear All Todos
+            </Button>
+          ) : null}
+        </footer>
       </>
     );
   }
